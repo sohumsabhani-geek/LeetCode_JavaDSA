@@ -1,30 +1,25 @@
 class Solution {
     public boolean isPalindrome(String s) {
+        Stack<Character> st = new Stack<>();
 
-        int left = 0;
-        int right = s.length() - 1;
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
 
-        while (left < right) {
-
-            while (left < right && 
-                   !Character.isLetterOrDigit(s.charAt(left))) {
-                left++;
+            if (Character.isLetterOrDigit(ch)) {
+                st.push(Character.toLowerCase(ch));
             }
+        }
 
-            while (left < right && 
-                   !Character.isLetterOrDigit(s.charAt(right))) {
-                right--;
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+
+            if (Character.isLetterOrDigit(ch)) {
+                ch = Character.toLowerCase(ch);
+
+                if (ch != st.pop()) {
+                    return false;
+                }
             }
-
-            char l = Character.toLowerCase(s.charAt(left));
-            char r = Character.toLowerCase(s.charAt(right));
-
-            if (l != r) {
-                return false;
-            }
-
-            left++;
-            right--;
         }
 
         return true;
